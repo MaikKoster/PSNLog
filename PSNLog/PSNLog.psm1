@@ -10,3 +10,6 @@ foreach($import in @($Public + $Private)) {
 }
 
 Export-ModuleMember -Function $Public.Basename
+
+# Create a logger instance in module scope
+$Script:Logger = Get-NLogLogger -LoggerName 'PSNLog'

@@ -18,15 +18,23 @@ Get-NLogLogger [[-LoggerName] <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 The Get-NLogLogger Cmdlet gets the specified NLog logger.
+On default, the LoggerName will have the name of the calling PowerShell CmdLet\Function.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Get a default NLog logger instance
 ```
 
-{{ Add example description here }}
+PS C:\\\>$Logger = Get-NLogLogger
+
+### EXAMPLE 2
+```
+Get a NLog logger instance with a specific name
+```
+
+PS C:\\\>$Logger = Get-NLogLogger -LoggerName 'MyNlogLogger'
 
 ## PARAMETERS
 
@@ -40,7 +48,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: PSNLog
+Default value: (Get-PSCallStack)[1].Command
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
