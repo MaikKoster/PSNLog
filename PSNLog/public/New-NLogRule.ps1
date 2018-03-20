@@ -7,15 +7,14 @@ function New-NLogRule {
         The New-NLogRule Cmdlet returns a new NLog logging rule.
 
         .EXAMPLE
-        Create a new rule to log all messages above and including the Info level.
-
         PS C:>$Rule = New-NLogRule -MinimumLevel Info -Target $FileTarget
 
-        .EXAMPLE
-        Create a new rule to log all Warn level messages.
+        Create a new rule to log all messages above and including the Info level.
 
+        .EXAMPLE
         PS C:>$Rule = New-NLogRule -MinimumLevel Warn -MaximumLevel Warn -Target $FileTarget
 
+        Create a new rule to log all Warn level messages.
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
     [CmdLetBinding(DefaultParameterSetName='MinLevel')]

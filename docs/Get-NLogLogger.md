@@ -24,17 +24,17 @@ On default, the LoggerName will have the name of the calling PowerShell CmdLet\F
 
 ### EXAMPLE 1
 ```
-Get a default NLog logger instance
+$Logger = Get-NLogLogger
 ```
 
-PS C:\\\>$Logger = Get-NLogLogger
+Get a default NLog logger instance
 
 ### EXAMPLE 2
 ```
-Get a NLog logger instance with a specific name
+$Logger = Get-NLogLogger -LoggerName 'MyNlogLogger'
 ```
 
-PS C:\\\>$Logger = Get-NLogLogger -LoggerName 'MyNlogLogger'
+Get a NLog logger instance with a specific name
 
 ## PARAMETERS
 

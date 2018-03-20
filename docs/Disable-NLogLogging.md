@@ -23,10 +23,10 @@ The Disable-NLogLogging Cmdlet disables all global logging.
 
 ### EXAMPLE 1
 ```
-Disable all logging
+Disable-NLogLogging
 ```
 
-PS C:\>Disable-NLogLogging
+Disable all logging
 
 ## PARAMETERS
 

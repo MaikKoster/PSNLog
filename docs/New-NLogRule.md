@@ -35,17 +35,17 @@ The New-NLogRule Cmdlet returns a new NLog logging rule.
 
 ### EXAMPLE 1
 ```
-Create a new rule to log all messages above and including the Info level.
+$Rule = New-NLogRule -MinimumLevel Info -Target $FileTarget
 ```
 
-PS C:\>$Rule = New-NLogRule -MinimumLevel Info -Target $FileTarget
+Create a new rule to log all messages above and including the Info level.
 
 ### EXAMPLE 2
 ```
-Create a new rule to log all Warn level messages.
+$Rule = New-NLogRule -MinimumLevel Warn -MaximumLevel Warn -Target $FileTarget
 ```
 
-PS C:\>$Rule = New-NLogRule -MinimumLevel Warn -MaximumLevel Warn -Target $FileTarget
+Create a new rule to log all Warn level messages.
 
 ## PARAMETERS
 

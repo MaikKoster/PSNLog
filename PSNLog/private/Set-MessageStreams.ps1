@@ -8,10 +8,9 @@ function Set-MessageStreams {
         The native Cmdlets will be called as well.
 
         .EXAMPLE
-        Redirect Write-Verbose, Write-Warning and Write-Error
-
         PS C:>Set-MessageStreams -WriteVerbose -WriteWarning -WriteError
 
+        Redirect Write-Verbose, Write-Warning and Write-Error
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     [CmdLetBinding(SupportsShouldProcess)]

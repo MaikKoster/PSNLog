@@ -25,10 +25,10 @@ $false if not.
 
 ### EXAMPLE 1
 ```
-Test if logging is currently enabled
+$Enabled = Test-NLogLogging
 ```
 
-PS C:\>$Enabled = Test-NLogLogging
+Test if logging is currently enabled
 
 ## PARAMETERS
 

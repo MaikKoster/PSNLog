@@ -7,11 +7,10 @@ function New-NLogTarget {
         The New-NLogRule Cmdlet returns a new NLog logging target.
 
         .EXAMPLE
-        Create a new file target
-
         PS C:\>$FileTarget = New-NLogTarget -Name 'AllWarnings' -FileTarget
         PS C:\>$FileTarget.FileName = 'C:\Temp\AllWarnings.log'
 
+        Create a new file target
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
     [CmdLetBinding(DefaultParameterSetName='ByTypeName')]

@@ -84,11 +84,12 @@ The New-NLogRule Cmdlet returns a new NLog logging target.
 
 ### EXAMPLE 1
 ```
-Create a new file target
+$FileTarget = New-NLogTarget -Name 'AllWarnings' -FileTarget
 ```
 
-PS C:\\\>$FileTarget = New-NLogTarget -Name 'AllWarnings' -FileTarget
 PS C:\\\>$FileTarget.FileName = 'C:\Temp\AllWarnings.log'
+
+Create a new file target
 
 ## PARAMETERS
 

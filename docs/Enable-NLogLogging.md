@@ -32,29 +32,29 @@ for trivial logging cases.
 
 ### EXAMPLE 1
 ```
-Quickly configure NLog so that all messages above and including the Info level are written to a file.
+Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log'
 ```
 
-PS C:\\\>Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log'
+Quickly configure NLog so that all messages above and including the Info level are written to a file.
 
 ### EXAMPLE 2
 ```
-Quickly configure NLog so that all messages above and including the Debug level are written to a file.
+Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log' -MinimumLevel Debug -RedirectMessages
 ```
 
+Quickly configure NLog so that all messages above and including the Debug level are written to a file.
 Automatically log all existing Write-Verbose messages to Debug, Write-Warning to Warn and Write-Error to Error.
-
-PS C:\\\>Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log' -MinimumLevel Debug -RedirectMessages
 
 ### EXAMPLE 3
 ```
-Quickly configure NLog so that all messages above and including the Warn level are written to target.
+$Target = New-NLogTarget -Name 'Warnings' -FileTarget
 ```
 
-PS C:\\\>$Target = New-NLogTarget -Name 'Warnings' -FileTarget
 PS C:\\\>$Target.Filename = 'C:\Temp\MyLogging.log'
 PS C:\\\>$Target.CreateDirs = $true
 PS C:\\\>Enable-NLogLogging -Target $Target -MinLevel Warn
+
+Quickly configure NLog so that all messages above and including the Warn level are written to target.
 
 ## PARAMETERS
 

@@ -9,14 +9,14 @@ function Get-NLogLogger {
         On default, the LoggerName will have the name of the calling PowerShell CmdLet\Function.
 
         .EXAMPLE
-        Get a default NLog logger instance
-
         PS C:\>$Logger = Get-NLogLogger
 
-        .EXAMPLE
-        Get a NLog logger instance with a specific name
+        Get a default NLog logger instance
 
+        .EXAMPLE
         PS C:\>$Logger = Get-NLogLogger -LoggerName 'MyNlogLogger'
+
+        Get a NLog logger instance with a specific name
     #>
     [CmdLetBinding()]
     [OutputType([NLog.Logger])]

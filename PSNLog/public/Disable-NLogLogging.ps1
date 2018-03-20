@@ -7,9 +7,9 @@ function Disable-NLogLogging {
         The Disable-NLogLogging Cmdlet disables all global logging.
 
         .EXAMPLE
-        Disable all logging
-
         PS C:>Disable-NLogLogging
+
+        Disable all logging
     #>
     [CmdLetBinding(SupportsShouldProcess)]
     param(
