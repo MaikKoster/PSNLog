@@ -46,7 +46,7 @@ build_script:
   - ps: |
       if ($Env:APPVEYOR_REPO_BRANCH -eq 'master') {
         # Build and create a new release on GitHub when building on master
-        Invoke-Build #-Task BuildAndRelease
+        Invoke-Build -Task BuildAndRelease
       } else {
         # Build only
         Invoke-Build
