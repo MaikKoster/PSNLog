@@ -258,6 +258,8 @@ task PrepareStage {
     }
     Copy-Item -Path "$BuildRoot\README.md" -Destination $StageReleasePath
     Copy-Item -Path $LicensePath -Destination $StageReleasePath
+    Copy-Item -Path "$ModulePath\Sample.config" -Destination $StageReleasePath
+    Copy-Item -Path "$ModulePath\NLog.dll" -Destination $StageReleasePath
 }, GetPublicFunctions
 
 # Synopsis:  Collect a list of our public methods for later module manifest updates
