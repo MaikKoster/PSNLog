@@ -1,4 +1,4 @@
-# PSNLog Module Release History
+﻿# PSNLog Module Release History
 
 ## [Unreleased]
 TBD
