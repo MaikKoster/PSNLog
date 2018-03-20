@@ -17,17 +17,17 @@ InModuleScope "$ModuleName" {
 
         It 'Create by target type name' {
             New-NLogTarget 'Testname' 'NullTarget' | Should BeOfType [NLog.Targets.NullTarget]
-            New-NLogTarget 'Testname' 'ConsoleTarget' | Should BeOfType [NLog.Targets.ConsoleTarget]
-            New-NLogTarget 'Testname' 'DatabaseTarget' | Should BeOfType [NLog.Targets.DatabaseTarget]
+            New-NLogTarget 'Testname' 'Targets.ConsoleTarget' | Should BeOfType [NLog.Targets.ConsoleTarget]
+            New-NLogTarget 'Testname' 'NLog.Targets.DatabaseTarget' | Should BeOfType [NLog.Targets.DatabaseTarget]
             New-NLogTarget 'Testname' 'DebugTarget' | Should BeOfType [NLog.Targets.DebugTarget]
-            New-NLogTarget 'Testname' 'EventLogTarget' | Should BeOfType [NLog.Targets.EventLogTarget]
-            New-NLogTarget 'Testname' 'FileTarget' | Should BeOfType [NLog.Targets.FileTarget]
+            New-NLogTarget 'Testname' 'Targets.EventLogTarget' | Should BeOfType [NLog.Targets.EventLogTarget]
+            New-NLogTarget 'Testname' 'NLog.Targets.FileTarget' | Should BeOfType [NLog.Targets.FileTarget]
             New-NLogTarget 'Testname' 'MailTarget' | Should BeOfType [NLog.Targets.MailTarget]
-            New-NLogTarget 'Testname' 'MemoryTarget' | Should BeOfType [NLog.Targets.MemoryTarget]
-            New-NLogTarget 'Testname' 'NetworkTarget' | Should BeOfType [NLog.Targets.NetworkTarget]
+            New-NLogTarget 'Testname' 'Targets.MemoryTarget' | Should BeOfType [NLog.Targets.MemoryTarget]
+            New-NLogTarget 'Testname' 'NLog.Targets.NetworkTarget' | Should BeOfType [NLog.Targets.NetworkTarget]
             New-NLogTarget 'Testname' 'NLogViewerTarget' | Should BeOfType [NLog.Targets.NLogViewerTarget]
-            New-NLogTarget 'Testname' 'PerformanceCounterTarget' | Should BeOfType [NLog.Targets.PerformanceCounterTarget]
-            New-NLogTarget 'Testname' 'WebServiceTarget' | Should BeOfType [NLog.Targets.WebServiceTarget]
+            New-NLogTarget 'Testname' 'Targets.PerformanceCounterTarget' | Should BeOfType [NLog.Targets.PerformanceCounterTarget]
+            New-NLogTarget 'Testname' 'NLog.Targets.WebServiceTarget' | Should BeOfType [NLog.Targets.WebServiceTarget]
         }
 
         It 'Create by taget type' {

@@ -19,6 +19,36 @@ InModuleScope "$ModuleName" {
             Test-Path -Path $TestPath | Should Be $true
         }
 
+        It 'Enable simple file logging and automatically redirect streams' {
+            $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging1.log'
+            Enable-NLogLogging -FilePath $TestPath -RedirectMessages
+
+            $Logger = Get-NLogLogger
+            $Logger.IsInfoEnabled | Should Be $true
+            $Logger.Info("Some Test")
+            Test-Path -Path $TestPath | Should Be $true
+            Test-Path -Path 'Alias:\Write-Verbose' | Should Be $true
+            Test-Path -Path 'Alias:\Write-Warning' | Should Be $true
+            Test-Path -Path 'Alias:\Write-Error' | Should Be $true
+            Test-Path -Path 'Alias:\Write-Host' | Should Be $false
+            Set-MessageStreams -Remove
+        }
+
+        It 'Enable simple file logging and automatically host messages' {
+            $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging1.log'
+            Enable-NLogLogging -FilePath $TestPath -RedirectHost
+
+            $Logger = Get-NLogLogger
+            $Logger.IsInfoEnabled | Should Be $true
+            $Logger.Info("Some Test")
+            Test-Path -Path $TestPath | Should Be $true
+            Test-Path -Path 'Alias:\Write-Verbose' | Should Be $false
+            Test-Path -Path 'Alias:\Write-Warning' | Should Be $false
+            Test-Path -Path 'Alias:\Write-Error' | Should Be $false
+            Test-Path -Path 'Alias:\Write-Host' | Should Be $true
+            Set-MessageStreams -Remove
+        }
+
         It 'Enable simple file logging with min level' {
             $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging2.log'
             Enable-NLogLogging -FilePath $TestPath -MinLevel 'Warn'

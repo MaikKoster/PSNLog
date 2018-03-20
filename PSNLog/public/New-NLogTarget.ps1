@@ -93,9 +93,9 @@ function New-NLogTarget {
         $Target = $null
         switch ($PSCmdlet.ParameterSetName) {
             'ByTypeName' {
-                if ($TargetName -like 'NLog.Targets.*') {
+                if ($TargetType -like 'NLog.Targets.*') {
                     $Target = New-Object "$TargetType"
-                } elseif ($TargetName -like 'Targets.*') {
+                } elseif ($TargetType -like 'Targets.*') {
                     $Target = New-Object "NLog.$TargetType"
                 } else {
                     $Target = New-Object "NLog.Targets.$TargetType"
@@ -114,7 +114,6 @@ function New-NLogTarget {
             'NLogViewerTarget' {$Target = New-Object NLog.Targets.NLogViewerTarget;break}
             'PerformanceCounterTarget' {$Target = New-Object NLog.Targets.PerformanceCounterTarget;break}
             'WebServiceTarget' {$Target = New-Object NLog.Targets.WebServiceTarget;break}
-            default {$Target = New-Object NLog.Targets.NullTarget}
         }
 
         if ($null -ne $Target) {

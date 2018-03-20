@@ -60,7 +60,6 @@ function New-NLogRule {
             'DisabledRule' {New-Object NLog.Config.LoggingRule($LoggerNamePattern, $Target); break}
             'MinLevel' {New-Object NLog.Config.LoggingRule($LoggerNamePattern, [NLog.LogLevel]::FromString($MinimumLevel), $Target); break}
             'MinMaxLevel' {New-Object NLog.Config.LoggingRule($LoggerNamePattern, [NLog.LogLevel]::FromString($MinimumLevel), [NLog.LogLevel]::FromString($MaximumLevel), $Target); break}
-            default {New-Object NLog.Config.LoggingRule}
         }
     }
 }

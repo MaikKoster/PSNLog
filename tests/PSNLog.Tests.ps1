@@ -47,20 +47,20 @@ Describe "Manifest" {
         $script:manifest.Version -as [Version] | Should Not BeNullOrEmpty
     }
 
-    $script:changelogVersion = $null
-    It "has a valid version in the changelog" {
+    # $script:changelogVersion = $null
+    # It "has a valid version in the changelog" {
 
-        foreach ($line in (Get-Content $changeLogPath))
-        {
-            if ($line -match "^\D*(?<Version>(\d+\.){1,3}\d+)")
-            {
-                $script:changelogVersion = $matches.Version
-                break
-            }
-        }
-        $script:changelogVersion                | Should Not BeNullOrEmpty
-        $script:changelogVersion -as [Version]  | Should Not BeNullOrEmpty
-    }
+    #     foreach ($line in (Get-Content $changeLogPath))
+    #     {
+    #         if ($line -match "^\D*(?<Version>(\d+\.){1,3}\d+)")
+    #         {
+    #             $script:changelogVersion = $matches.Version
+    #             break
+    #         }
+    #     }
+    #     $script:changelogVersion                | Should Not BeNullOrEmpty
+    #     $script:changelogVersion -as [Version]  | Should Not BeNullOrEmpty
+    # }
 
     #It "changelog and manifest versions are the same" {
     #    $script:changelogVersion -as [Version] | Should be ( $script:manifest.Version -as [Version] )
@@ -86,7 +86,7 @@ Describe "Testfiles" {
     foreach ($File in (Get-ChildItem "$root\$ModuleName" -File "*.ps1" -Recurse)) {
 
         It "$($File.Name) has a corresponding Testfile." {
-            Get-ChildItem "$Root\tests" -File -Filter "$($File.BaseName).Tests.ps1" | Should Not BeNullOrEmpty
+            Get-ChildItem "$Root\tests" -Recurse -File -Filter "$($File.BaseName).Tests.ps1" | Should Not BeNullOrEmpty
         }
     }
 }
