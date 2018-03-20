@@ -16,7 +16,7 @@ InModuleScope "$ModuleName" {
 
         It 'Set configuration' {
             [NLog.Logmanager]::Configuration = $null
-            Copy-Item -Path "$root\$ModuleName\Sample.config" -Destination "$TestDrive"
+            Copy-Item -Path "$PSScriptRoot\..\..\PSNlog\Sample.config" -Destination "$TestDrive"
             $Config = Read-NLogConfiguration -Filename "$TestDrive\Sample.config"
             Set-NLogConfiguration -Configuration $Config
 

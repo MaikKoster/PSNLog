@@ -10,7 +10,7 @@ if (-Not(Get-Module -Name "$ModuleName")) {
 InModuleScope "$ModuleName" {
     Describe 'Get-NLogConfiguration' {
         It 'Get current NLog configuration configuration' {
-            Copy-Item -Path "$root\$ModuleName\Sample.config" -Destination "$TestDrive"
+            Copy-Item -Path "$PSScriptRoot\..\..\PSNlog\Sample.config" -Destination "$TestDrive"
             $Config = Read-NLogConfiguration -Filename "$TestDrive\Sample.config"
             Set-NLogConfiguration -Configuration $Config
 

@@ -10,7 +10,7 @@ if (-Not(Get-Module -Name "$ModuleName")) {
 InModuleScope "$ModuleName" {
     Describe 'Read-NLogConfiguration' {
         It 'Return sample configuration' {
-            Copy-Item -Path "$root\$ModuleName\Sample.config" -Destination "$TestDrive"
+            Copy-Item -Path "$PSScriptRoot\..\..\PSNlog\Sample.config" -Destination "$TestDrive"
             $Config = Read-NLogConfiguration -Filename "$TestDrive\Sample.config"
 
             $Config | Should BeOfType [NLog.Config.LoggingConfiguration]

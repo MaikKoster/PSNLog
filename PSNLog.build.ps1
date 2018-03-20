@@ -387,7 +387,7 @@ task RunTests {
         PassThru = $true
         Verbose = $false
         EnableExit = $false
-        CodeCoverage = (Get-ChildItem -Path "$ModulePath\*.ps1" -Exclude "*.Tests.*" -Recurse).FullName
+        CodeCoverage = (Get-ChildItem -Path "$ModulePath\*.ps1" -Exclude "*.Tests.*", "Add-CMTraceLayoutRenderer.ps1" -Recurse).FullName
     }
 
     # Ensure current module scope is removed.
