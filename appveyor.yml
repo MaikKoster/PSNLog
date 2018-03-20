@@ -1,0 +1,66 @@
+# Disable automatic builds
+build: off
+
+# Version number
+version: 0.2.{build}
+
+skip_commits:
+  files:
+    - README.md
+    - appveyor.yml
+    - docs/*
+    - .vscode
+  message: /updated readme.*|update readme.*s|update docs.*|update version.*|update appveyor.*|v\d\.\d\.\d+/
+
+skip_tags: true
+
+#skip_non_tags: true
+
+environment:
+  GitHubKey:
+    secure: sF4El1RbRQ5kkI1+K5sv9AZlwkaJE9OeOyUnTBwtVyNeo7krRP0V1C607Tal3sUQ
+  PSGalleryKey:
+    secure: JIP/CzuBZTaDq9NS7FAzcAjZVq0kWfM1+KVMDm3IvbIFDdD1RX0MHShhYpohD3Iv
+  MyGetKey:
+    secure: +zNd+M9Zr3ExXd1c8HWy5+1VTRY47TojC68Z7ohSu5DRHVQ1otFoc5lm6VULA6l2
+  AppVeyorKey:
+    secure: Fc+eB7vimbVerpEWtHarUSC0fM5e1zTOBxJ7Rwwxqdc=
+  CoverallKey:
+    secure: B6WYS2545rt4xY3DvP9Wy8tHKwP/JPckyvTZ5vpCj451oeD06iL+th4wNQgpntbg
+
+# Allow WMF5 (i.e. PowerShellGallery functionality)
+os: WMF 5
+
+# Prepare Git and Build environment
+init:
+  - git config --global core.autocrlf true
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
+  - git config --global user.email "Maik.Koster@gmx.de"
+  - git config --global user.name "Maik Koster"
+  - ps: |
+      Install-PackageProvider -Name NuGet -Force | Out-Null
+      Install-Module InvokeBuild -Force
+
+build_script:
+  - ps: |
+      if ($Env:APPVEYOR_REPO_BRANCH -eq 'master') {
+        # Build and create a new release on GitHub when building on master
+        Invoke-Build #-Task BuildAndRelease
+      } else {
+        # Build only
+        Invoke-Build
+      }
+
+
+on_success:
+#  - git checkout master
+#  - git add --all
+#  - git reset -- PSNLog.zip
+#  - git status
+#  - git commit -s -m "Update version to %APPVEYOR_BUILD_VERSION%"
+#  - git push origin master
+
+# artifacts:
+#   - path: artifacts\PSNLog-$(appveyor_build_version).zip
+#     name: PSNLog-$(appveyor_build_version).zip
