@@ -545,6 +545,9 @@ task CreateUpdateableHelpCAB CreateExternalHelp,  {
 # Synopsis: Push with a version tag.
 # Triggers Update in ReadMe and Release Notes
 task GitHubPushRelease Version, UpdateReadMe, UpdateReleaseNotes, PrepareArtifacts, GitHubPush, GetReleaseNotes, {
+    # Github disabled TLS 1.0 support on 2018-02-23. Need to enable TLS 1.2
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor "Tls12"
+
 	$changes = exec { git status --short }
 	assert (-not $changes) 'Please, commit changes'
 
@@ -612,6 +615,9 @@ task GitHubPushRelease Version, UpdateReadMe, UpdateReleaseNotes, PrepareArtifac
 
 # Synopsis: Commit changes and push to github
 task GitHubPush {
+    # Github disabled TLS 1.0 support on 2018-02-23. Need to enable TLS 1.2
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor "Tls12"
+
     if ($Env:APPVEYOR) {
         $CurrentBranch = $Env:APPVEYOR_REPO_BRANCH
     } else {
