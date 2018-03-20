@@ -41,5 +41,16 @@ InModuleScope "$ModuleName" {
             Remove-Item 'Alias:\Write-Warning'
             Remove-Item 'Alias:\Write-Verbose'
         }
+
+        It 'Remove alias' {
+            Set-Messagestreams -WriteVerbose -WriteWarning -WriteError
+            Test-Path 'Alias:\Write-Verbose' | Should Be $true
+            Test-Path 'Alias:\Write-Warning' | Should Be $true
+            Test-Path 'Alias:\Write-Error' | Should Be $true
+            Set-Messagestreams -Remove
+            Test-Path 'Alias:\Write-Verbose' | Should Be $false
+            Test-Path 'Alias:\Write-Warning' | Should Be $false
+            Test-Path 'Alias:\Write-Error' | Should Be $false
+        }
     }
 }

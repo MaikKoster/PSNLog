@@ -17,16 +17,24 @@ function Set-MessageStreams {
     [CmdLetBinding(SupportsShouldProcess)]
     param(
         # Specifies if Write-Verbose calls should be redirected to Write-NLogVerbose
+        [Parameter(ParameterSetName='Add')]
         [switch]$WriteVerbose,
 
         # Specifies if Write-Host calls should be redirected to Write-NLogHost
+        [Parameter(ParameterSetName='Add')]
         [switch]$WriteHost,
 
         # Specifies if Write-Warning calls should be redirected to Write-NLogWarning
+        [Parameter(ParameterSetName='Add')]
         [switch]$WriteWarning,
 
         # Specifies if Write-Error calls should be redirecte to Write-NLogError
-        [switch]$WriteError
+        [Parameter(ParameterSetName='Add')]
+        [switch]$WriteError,
+
+        # Specifies if the alias added by this function should be removed
+        [Parameter(ParameterSetName='Remove')]
+        [switch]$Remove
     )
 
     process {
@@ -48,6 +56,20 @@ function Set-MessageStreams {
         if ($WriteError.IsPresent) {
             if (-Not(Test-Path 'Alias:\Write-Error')) {
                 New-Alias -Name 'Write-Error' -Value 'Write-NLogError' -Scope Global
+            }
+        }
+        if ($Remove.IsPresent){
+            if (Test-Path 'Alias:\Write-Verbose') {
+                Remove-Item 'Alias:\Write-Verbose' -Force
+            }
+            if (Test-Path 'Alias:\Write-Warning') {
+                Remove-Item 'Alias:\Write-Warning' -Force
+            }
+            if (Test-Path 'Alias:\Write-Error') {
+                Remove-Item 'Alias:\Write-Error' -Force
+            }
+            if (Test-Path 'Alias:\Write-Host') {
+                Remove-Item 'Alias:\Write-Host' -Force
             }
         }
     }
