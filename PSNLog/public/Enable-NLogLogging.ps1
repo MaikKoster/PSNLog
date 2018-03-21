@@ -10,13 +10,15 @@ function Enable-NLogLogging {
         .EXAMPLE
         PS C:\>Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log'
 
-        Quickly configure NLog so that all messages above and including the Info level are written to a file.
+        Quickly configure NLog so that all messages above and including the Debug level are written to a file.
+        It automatically logs all existing Write-Verbose messages to Debug, Write-Host to Info, Write-Warning
+        to Warn and Write-Error to Error.
 
         .EXAMPLE
-        PS C:\>Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log' -MinimumLevel Debug -RedirectMessages
+        PS C:\>Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log' -MinimumLevel Warn -DontRedirectMessages
 
-        Quickly configure NLog so that all messages above and including the Debug level are written to a file.
-        Automatically log all existing Write-Verbose messages to Debug, Write-Warning to Warn and Write-Error to Error.
+        Quickly configure NLog so that all messages above and including the Warn level are written to a file.
+        But it does not redirect the calls to Write-Verbose, Write-Host, Write-Warning or Write-Error.
 
         .EXAMPLE
         PS C:\>$Target = New-NLogTarget -Name 'Warnings' -FileTarget
@@ -52,17 +54,10 @@ function Enable-NLogLogging {
         # redirected to the logging Target automagically.
         # If set, the following configuration will be applied
         # Write-Verbose -> Log message on 'Debug' level
+        # Write-Host -> Log message on 'Info' level
         # Write-Warning -> Log message on 'Warning' level
         # Write-Error -> Log message on 'Error' level
-        [Alias('Redirect')]
-        [switch]$RedirectMessages,
-
-        # Specifies, if Messages written to Write-Host should be
-        # redirected to the logging Target automagically.
-        # If set, the following configuration will be applied
-        # Write-Host -> Log message on 'Info' level
-        # Might cause some strange behaviour. So test properly.
-        [switch]$RedirectHost
+        [switch]$DontRedirectMessages
     )
 
     process{
@@ -84,12 +79,8 @@ function Enable-NLogLogging {
             [NLog.LogManager]::EnableLogging()
         }
 
-        if ($RedirectMessages.IsPresent) {
+        if (-Not($DontRedirectMessages.IsPresent)) {
             Set-MessageStreams -WriteVerbose -WriteWarning -WriteError
-        }
-
-        if ($RedirectHost.IsPresent) {
-            Set-MessageStreams -WriteHost
         }
     }
 }

@@ -31,9 +31,9 @@ InModuleScope "$ModuleName" {
             Disable-NLogLogging
         }
 
-        It 'Enable simple file logging and automatically redirect streams' {
+        It 'Enable simple file logging and automatically redirect messages' {
             $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging1.log'
-            Enable-NLogLogging -Filename $TestPath -RedirectMessages
+            Enable-NLogLogging -Filename $TestPath
 
             $Logger = Get-NLogLogger
             $Logger.IsInfoEnabled | Should Be $true
@@ -47,9 +47,9 @@ InModuleScope "$ModuleName" {
             Disable-NLogLogging
         }
 
-        It 'Enable simple file logging and automatically host messages' {
+        It 'Enable simple file logging and do not redirect messages' {
             $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging1.log'
-            Enable-NLogLogging -Filename $TestPath -RedirectHost
+            Enable-NLogLogging -Filename $TestPath -DontRedirectMessages
 
             $Logger = Get-NLogLogger
             $Logger.IsInfoEnabled | Should Be $true
@@ -58,7 +58,7 @@ InModuleScope "$ModuleName" {
             Test-Path -Path 'Alias:\Write-Verbose' | Should Be $false
             Test-Path -Path 'Alias:\Write-Warning' | Should Be $false
             Test-Path -Path 'Alias:\Write-Error' | Should Be $false
-            Test-Path -Path 'Alias:\Write-Host' | Should Be $true
+            Test-Path -Path 'Alias:\Write-Host' | Should Be $false
             Set-MessageStreams -Remove
             Disable-NLogLogging
         }

@@ -14,14 +14,13 @@ Enables simple logging for trivial logging cases.
 
 ### ByFilename (Default)
 ```
-Enable-NLogLogging [[-Filename] <String>] [-MinimumLevel <String>] [-Layout <String>] [-RedirectMessages]
- [-RedirectHost] [<CommonParameters>]
+Enable-NLogLogging [[-Filename] <String>] [-MinimumLevel <String>] [-Layout <String>] [-DontRedirectMessages]
+ [<CommonParameters>]
 ```
 
 ### ByTarget
 ```
-Enable-NLogLogging -Target <Target> [-MinimumLevel <String>] [-RedirectMessages] [-RedirectHost]
- [<CommonParameters>]
+Enable-NLogLogging -Target <Target> [-MinimumLevel <String>] [-DontRedirectMessages] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,15 +34,17 @@ for trivial logging cases.
 Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log'
 ```
 
-Quickly configure NLog so that all messages above and including the Info level are written to a file.
+Quickly configure NLog so that all messages above and including the Debug level are written to a file.
+It automatically logs all existing Write-Verbose messages to Debug, Write-Host to Info, Write-Warning
+to Warn and Write-Error to Error.
 
 ### EXAMPLE 2
 ```
-Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log' -MinimumLevel Debug -RedirectMessages
+Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log' -MinimumLevel Warn -DontRedirectMessages
 ```
 
-Quickly configure NLog so that all messages above and including the Debug level are written to a file.
-Automatically log all existing Write-Verbose messages to Debug, Write-Warning to Warn and Write-Error to Error.
+Quickly configure NLog so that all messages above and including the Warn level are written to a file.
+But it does not redirect the calls to Write-Verbose, Write-Host, Write-Warning or Write-Error.
 
 ### EXAMPLE 3
 ```
@@ -118,33 +119,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RedirectMessages
+### -DontRedirectMessages
 Specifies, if Messages written to Write-Verbose/Write-Host/Write-Warning/Write-Error should be
 redirected to the logging Target automagically.
 If set, the following configuration will be applied
 Write-Verbose -\> Log message on 'Debug' level
+Write-Host -\> Log message on 'Info' level
 Write-Warning -\> Log message on 'Warning' level
 Write-Error -\> Log message on 'Error' level
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: Redirect
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -RedirectHost
-Specifies, if Messages written to Write-Host should be
-redirected to the logging Target automagically.
-If set, the following configuration will be applied
-Write-Host -\> Log message on 'Info' level
-Might cause some strange behaviour.
-So test properly.
 
 ```yaml
 Type: SwitchParameter
