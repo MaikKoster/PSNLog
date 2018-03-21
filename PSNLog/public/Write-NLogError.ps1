@@ -60,6 +60,6 @@ function Write-NLogError {
         }
 
         # Write to original Message Stream
-        Microsoft.PowerShell.Utility\Write-Error $PSBoundParameters
+        Microsoft.PowerShell.Utility\Write-Error @PSBoundParameters
     }
 }

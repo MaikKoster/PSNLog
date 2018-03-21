@@ -28,6 +28,6 @@ function Write-NLogHost {
         }
 
         # Write to original Message Stream
-        Microsoft.PowerShell.Utility\Write-Host $PSBoundParameters
+        Microsoft.PowerShell.Utility\Write-Host @PSBoundParameters
     }
 }

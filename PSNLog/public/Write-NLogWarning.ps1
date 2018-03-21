@@ -26,6 +26,6 @@ function Write-NLogWarning {
         }
 
         # Write to original Message Stream
-        Microsoft.PowerShell.Utility\Write-Warning $PSBoundParameters
+        Microsoft.PowerShell.Utility\Write-Warning @PSBoundParameters
     }
 }

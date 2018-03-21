@@ -26,6 +26,6 @@
         }
 
         # Write to original Message Stream
-        Microsoft.PowerShell.Utility\Write-Verbose $PSBoundParameters
+        Microsoft.PowerShell.Utility\Write-Verbose @PSBoundParameters
     }
 }
