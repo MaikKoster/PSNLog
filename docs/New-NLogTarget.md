@@ -78,7 +78,7 @@ New-NLogTarget [-Name] <String> [-WebServiceTarget] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The New-NLogRule Cmdlet returns a new NLog logging target.
+The New-NLogTarget Cmdlet returns a new NLog logging target.
 
 ## EXAMPLES
 

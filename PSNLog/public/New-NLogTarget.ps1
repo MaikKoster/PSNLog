@@ -4,7 +4,7 @@ function New-NLogTarget {
         Creates a new NLog logging target.
 
         .DESCRIPTION
-        The New-NLogRule Cmdlet returns a new NLog logging target.
+        The New-NLogTarget Cmdlet returns a new NLog logging target.
 
         .EXAMPLE
         PS C:\>$FileTarget = New-NLogTarget -Name 'AllWarnings' -FileTarget
