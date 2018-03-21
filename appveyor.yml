@@ -36,7 +36,7 @@ init:
   - git config --global core.autocrlf true
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
-  - git config --global user.email "Maik.Koster@gmx.de"
+  - git config --global user.email "MaikKoster@users.noreply.github.com"
   - git config --global user.name "Maik Koster"
   - ps: |
       Install-PackageProvider -Name NuGet -Force | Out-Null

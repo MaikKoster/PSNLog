@@ -643,7 +643,9 @@ task GitHubPush {
     Write-Output "      git push origin $CurrentBranch"
     try {
         exec { git push origin $CurrentBranch }
-    } catch {}
+    } catch {
+        Write-Output $_
+    }
 	$changes = exec { git status --short }
 	assert (-not $changes) 'Please, commit changes.'
 }
