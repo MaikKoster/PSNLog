@@ -44,5 +44,10 @@ InModuleScope "$ModuleName" {
             New-NLogTarget -Name 'Testname' -PerformanceCounterTarget | Should BeOfType [NLog.Targets.PerformanceCounterTarget]
             New-NLogTarget -Name 'Testname' -WebServiceTarget | Should BeOfType [NLog.Targets.WebServiceTarget]
         }
+
+        It 'Use supplied name' {
+            $Target = New-NLogTarget -Name 'Testname' -NullTarget
+            $Target.Name | Should Be 'Testname'
+        }
     }
 }

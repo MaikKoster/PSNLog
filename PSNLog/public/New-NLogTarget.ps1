@@ -116,7 +116,7 @@ function New-NLogTarget {
         }
 
         if ($null -ne $Target) {
-            $Target.Name = $MailTarget
+            $Target.Name = $Name
             $Target
         }
     }
