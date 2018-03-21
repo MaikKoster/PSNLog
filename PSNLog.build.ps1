@@ -588,8 +588,6 @@ task GitHubPushRelease Version, UpdateReadMe, UpdateReleaseNotes, PrepareArtifac
         }
 
         Write-Output "      Create new release 'v$Version'"
-        $releaseData
-        $releaseParams
         $result = Invoke-RestMethod @releaseParams
 
         $ZippedRelease = Split-Path -Path $ZippedReleasePath -Leaf
