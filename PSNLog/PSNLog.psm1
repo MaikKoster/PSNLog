@@ -10,3 +10,6 @@ foreach($import in @($Public + $Private)) {
 }
 
 Export-ModuleMember -Function $Public.Basename
+
+# Initialize
+. "$PSScriptRoot\PSNLog.Initialize.ps1"
