@@ -7,8 +7,7 @@ $ModuleName = "PSNLog"
 Get-Module -Name $ModuleName -All | Remove-Module -Force -ErrorAction Stop
 $ManifestPath = (Resolve-Path -Path (Join-Path -Path $root -ChildPath "$ModuleName\$ModuleName.psd1"))
 $changeLogPath = (Resolve-Path -Path (Join-Path -Path $root -ChildPath "CHANGELOG.MD"))
-
-#Import-Module $ManifestPath -Force
+Import-Module $ManifestPath -Force
 
 Describe "Manifest" {
     $script:manifest = $null
@@ -47,38 +46,38 @@ Describe "Manifest" {
         $script:manifest.Version -as [Version] | Should Not BeNullOrEmpty
     }
 
-    # $script:changelogVersion = $null
-    # It "has a valid version in the changelog" {
+    $script:changelogVersion = $null
+    It "has a valid version in the changelog" {
 
-    #     foreach ($line in (Get-Content $changeLogPath))
-    #     {
-    #         if ($line -match "^\D*(?<Version>(\d+\.){1,3}\d+)")
-    #         {
-    #             $script:changelogVersion = $matches.Version
-    #             break
-    #         }
-    #     }
-    #     $script:changelogVersion                | Should Not BeNullOrEmpty
-    #     $script:changelogVersion -as [Version]  | Should Not BeNullOrEmpty
-    # }
+        foreach ($line in (Get-Content $changeLogPath))
+        {
+            if ($line -match "^\D*(?<Version>(\d+\.){1,3}\d+)")
+            {
+                $script:changelogVersion = $matches.Version
+                break
+            }
+        }
+        $script:changelogVersion                | Should Not BeNullOrEmpty
+        $script:changelogVersion -as [Version]  | Should Not BeNullOrEmpty
+    }
 
-    #It "changelog and manifest versions are the same" {
-    #    $script:changelogVersion -as [Version] | Should be ( $script:manifest.Version -as [Version] )
-    #}
+    It "changelog and manifest versions are the same" {
+       $script:changelogVersion -as [Version] | Should be ( $script:manifest.Version -as [Version] )
+    }
 
 
-    #It "has a valid HelpInfoUri" {
-    #    $Script:Manifest.HelpInfoUri |Should Not BeNullOrEmpty
-    #    { Invoke-WebRequest -Path $Module.HelpInfoUri } | Should Throw
-    #}
+    It "has a valid HelpInfoUri" {
+       $Script:Manifest.HelpInfoUri |Should Not BeNullOrEmpty
+       { Invoke-WebRequest -Uri $Module.HelpInfoUri } | Should Throw
+    }
 
-    #foreach ($command in (Get-Command -Module $Module)) {
-    #    if ($command.HelpUri) {
-    #        It "$command has a valid HelpUri " {
-    #            { Invoke-WebRequest -Path $command.HelpUri } | Should Not Throw
-    #        }
-    #    }
-    #}
+    foreach ($command in (Get-Command -Module $ModuleName)) {
+       if ($command.HelpUri) {
+           It "$command has a valid HelpUri " {
+               { Invoke-WebRequest -Uri $command.HelpUri } | Should Not Throw
+           }
+       }
+    }
 }
 
 Describe "Testfiles" {
