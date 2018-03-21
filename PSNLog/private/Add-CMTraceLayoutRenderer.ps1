@@ -17,6 +17,8 @@ function Add-CMTraceLayoutRenderer {
         It's not accessible outside of the module.
 
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingEmptyCatchBlock', '')]
     [CmdLetBinding()]
     param()
 

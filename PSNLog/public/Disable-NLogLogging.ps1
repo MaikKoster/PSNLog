@@ -11,7 +11,7 @@ function Disable-NLogLogging {
 
         Disable all logging
     #>
-    [CmdLetBinding(SupportsShouldProcess)]
+    [CmdLetBinding()]
     param(
     )
 

@@ -13,6 +13,7 @@ function Set-MessageStreams {
         Redirect Write-Verbose, Write-Warning and Write-Error
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalAliases', '')]
     [CmdLetBinding(SupportsShouldProcess)]
     param(
         # Specifies if Write-Verbose calls should be redirected to Write-NLogVerbose
