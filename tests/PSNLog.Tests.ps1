@@ -82,7 +82,7 @@ Describe "Manifest" {
 
 Describe "Testfiles" {
 
-    foreach ($File in (Get-ChildItem "$root\$ModuleName" -File "*.ps1" -Recurse)) {
+    foreach ($File in (Get-ChildItem "$root\$ModuleName" -File "*.ps1" -Exclude "*.Initialize.ps1" -Recurse)) {
 
         It "$($File.Name) has a corresponding Testfile." {
             Get-ChildItem "$Root\tests" -Recurse -File -Filter "$($File.BaseName).Tests.ps1" | Should Not BeNullOrEmpty
