@@ -2,7 +2,7 @@
 build: off
 
 # Version number
-version: 0.2.3+{build}
+version: 0.2.4+{build}
 
 skip_commits:
   files:
@@ -64,6 +64,3 @@ on_success:
 # artifacts:
 #   - path: artifacts\PSNLog-$(appveyor_build_version).zip
 #     name: PSNLog-$(appveyor_build_version).zip
-
-
-

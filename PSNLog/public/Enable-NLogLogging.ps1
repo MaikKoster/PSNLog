@@ -35,7 +35,7 @@ function Enable-NLogLogging {
         [string]$FilePath,
 
         # Specifies the Target to write log messages to.
-        [Parameter(ParameterSetName='ByTarget', Mandatory)]
+        [Parameter(ParameterSetName='ByTarget', Mandatory, ValueFromPipeline)]
         [ValidateNotNullOrEmpty()]
         [NLog.Targets.Target]$Target,
 
@@ -52,6 +52,7 @@ function Enable-NLogLogging {
         # Write-Verbose -> Log message on 'Debug' level
         # Write-Warning -> Log message on 'Warning' level
         # Write-Error -> Log message on 'Error' level
+        [Alias('Redirect')]
         [switch]$RedirectMessages,
 
         # Specifies, if Messages written to Write-Host should be

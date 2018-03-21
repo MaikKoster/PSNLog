@@ -1,6 +1,19 @@
 ﻿# PSNLog Module Release History
 
-## [0.2.3] - Unreleased
+## [0.2.4] - 2018-03-21
+[Full Changelog](https://github.com/MaikKoster/PSNlog/compare/v0.2.3...v0.2.4)
+
+### Added
+
+- Added CmdLet New-NLogFileTarget, as writing log messages to files is a very common task. Having a dedicated CmdLet makes it easier.
+
+### Fixed
+
+- Fixed build process to properly handle code that needs to be executed to properly initialize the module.
+- Fixed a few typos.
+
+## [0.2.3] - 2018-03-21
+[Full Changelog](https://github.com/MaikKoster/PSNlog/compare/v0.2.2...v0.2.3)
 
 ### Added
 

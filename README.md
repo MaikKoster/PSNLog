@@ -21,12 +21,12 @@ PowerShell Version 3.0+
 ### PowerShell Gallery Install (Requires PowerShell v5)
 
 ```powershell
-    The Module has not been published to Powershell Gallery yet.
+    Install-Module -Name PSNLog
 ```
 
 ### Manual Install
 
-Download [PSNlog-0.2.2.zip](https://github.com/MaikKoster/PSNLog/releases/download/v0.2.2/PSNLog-0.2.2.zip) and extract the contents into `'C:\Users\[User]\Documents\WindowsPowerShell\Modules\PSNlog'` (you may have to create these directories if they don't exist.). Then run
+Download [PSNlog-0.2.4.zip](https://github.com/MaikKoster/PSNLog/releases/download/v0.2.4/PSNLog-0.2.4.zip) and extract the contents into `'C:\Users\[User]\Documents\WindowsPowerShell\Modules\PSNlog'` (you may have to create these directories if they don't exist.). Then run
 
 ```powershell
     Get-ChildItem 'C:\Users\[User]\Documents\WindowsPowerShell\Modules\PSNLog\' -Recurse | Unblock-File
@@ -63,14 +63,11 @@ The Cmdlets will still write proper output as they are supposed to. If you now c
 
 ### Quickly add CMTrace style logging to existing scripts/modules
 
-The log format, that is used in the before sample, is the default format from NLog. As I'm dealing a lot with ConfigMgr, I personally prefer the log file format used by CMTrace, which is also supported by this PowerShell module. Quickly enabling this slightly more customized logging only takes three additional lines
+The log format, that is used in the before sample, is the default format from NLog. As I'm dealing a lot with ConfigMgr, I personally prefer the log file format used by CMTrace, which is also supported by this PowerShell module. Quickly enabling this slightly more customized logging only takes a little more effort. I sequezed it into a single line so it technically still takes only two lines of PowerShell to enable the logging ;)
 
 ```powershell
     Import-Module PSNlog
-    $Target = New-NLogTarget 'MyLogging' -FileTarget
-    $Target.FileName = 'C:\Temp\MyCMTraceLogging.log'
-    $Target.Layout = '${cmtrace}'
-    Enable-NLogLogging -Target $Target -MinimumLevel Debug -RedirectMessages
+    New-NLogFileTarget 'f' -FileName 'C:\Temp\Debug.log' -Layout '${cmtrace}' | Enable-NLogLogging -MinLevel Debug -RedirectMessages
 ```
 
 **${cmtrace}** is the name of the new Layout Renderer, that got added by this PowerShell Module.
