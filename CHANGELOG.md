@@ -1,6 +1,6 @@
 ﻿# PSNLog Module Release History
 
-## [0.2.3] - Unreleased
+## [0.2.3] - 2018-03-21
 
 ### Added
 

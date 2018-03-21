@@ -26,7 +26,7 @@ PowerShell Version 3.0+
 
 ### Manual Install
 
-Download [PSNlog-0.2.2.zip](https://github.com/MaikKoster/PSNLog/releases/download/v0.2.2/PSNLog-0.2.2.zip) and extract the contents into `'C:\Users\[User]\Documents\WindowsPowerShell\Modules\PSNlog'` (you may have to create these directories if they don't exist.). Then run
+Download [PSNLog-0.2.3.zip](https://github.com/MaikKoster/PSNLog/releases/download/v0.2.3/PSNLog-0.2.3.zip) and extract the contents into `'C:\Users\[User]\Documents\WindowsPowerShell\Modules\PSNlog'` (you may have to create these directories if they don't exist.). Then run
 
 ```powershell
     Get-ChildItem 'C:\Users\[User]\Documents\WindowsPowerShell\Modules\PSNLog\' -Recurse | Unblock-File
