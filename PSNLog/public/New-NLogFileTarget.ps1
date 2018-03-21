@@ -50,8 +50,8 @@ function New-NLogFileTarget {
     [OutputType([NLog.Targets.FileTarget])]
     param(
         # Specifies the Name of the target
-        [Parameter(Mandatory, Position=0)]
-        [ValidateNotNullOrEmpty()]
+        # If no name is supplied, a random string will be used
+        [Parameter(Position=0)]
         [string]$Name,
 
         # Specifies the name and path to write to.
@@ -61,8 +61,9 @@ function New-NLogFileTarget {
         # directory where the script runs. ${env:scriptroot}/${level}.log
         # All Debug messages will go to Debug.log, all Info messages will go to Info.log and so on.
         # You can combine as many of the layout renderers as you want to produce an arbitrary log file name.
-        [Parameter(Mandatory, Position=1)]
-        [ValidateNotNullOrEmpty()]
+        # If no filename is supplied, the name of the calling script will be used and written to the
+        # current users %Temp% directory. if not called from a script, the name will default to 'PSNLog'
+        [Parameter(Position=1)]
         [string]$FileName,
 
         # Specifies the layout that is used to render the log message
@@ -119,10 +120,22 @@ function New-NLogFileTarget {
     )
 
     process{
-        $FileTarget = New-Object NLog.Targets.FileTarget
+        $FileTarget = New-NLogTarget -Name $Name -FileTarget
 
-        $FileTarget.Name = $Name
-        $FileTarget.FileName = $FileName
+        if ([string]::IsNullOrEmpty($FileName)) {
+            $ScriptName = Get-PSCallStack | Select-Object -Last 1 -ExpandProperty 'ScriptName'
+
+            if ([string]::IsNullOrEmpty($ScriptName)) {
+                # Default to module name if no further information is supplied.
+                $ScriptName = 'PSNlog.log'
+            } else {
+                $ScriptName = (Split-Path -Path $ScriptName -Leaf) -replace '.ps1|.psm1','.log'
+            }
+
+            $FileTarget.FileName = "$Env:Temp\$ScriptName"
+        } else {
+            $FileTarget.FileName = $FileName
+        }
 
         if(-Not([string]::IsNullOrEmpty($Layout))){
             $FileTarget.Layout = $Layout

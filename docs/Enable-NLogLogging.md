@@ -14,8 +14,8 @@ Enables simple logging for trivial logging cases.
 
 ### ByFilename (Default)
 ```
-Enable-NLogLogging -FilePath <String> [-MinimumLevel <String>] [-RedirectMessages] [-RedirectHost]
- [<CommonParameters>]
+Enable-NLogLogging [[-Filename] <String>] [-MinimumLevel <String>] [-Layout <String>] [-RedirectMessages]
+ [-RedirectHost] [<CommonParameters>]
 ```
 
 ### ByTarget
@@ -58,16 +58,16 @@ Quickly configure NLog so that all messages above and including the Warn level a
 
 ## PARAMETERS
 
-### -FilePath
+### -Filename
 Specifies the Filename to write log messages to.
 
 ```yaml
 Type: String
 Parameter Sets: ByFilename
-Aliases: FullName
+Aliases: FilePath, FullName
 
-Required: True
-Position: Named
+Required: False
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -98,7 +98,22 @@ Aliases: MinLevel
 
 Required: False
 Position: Named
-Default value: None
+Default value: Debug
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Layout
+Specifies the log message layout used to write to the file target
+
+```yaml
+Type: String
+Parameter Sets: ByFilename
+Aliases:
+
+Required: False
+Position: Named
+Default value: ${cmtrace}
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

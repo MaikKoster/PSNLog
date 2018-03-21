@@ -9,18 +9,21 @@ if (-Not(Get-Module -Name "$ModuleName")) {
 
 InModuleScope "$ModuleName" {
     Describe 'New-NLogFileTarget' {
-        It 'Throw on invalid parameters' {
-            {New-NLogFileTarget '' ''} | Should Throw
-            {New-NLogFileTarget $null $null} | Should Throw
-            {New-NLogFileTarget -NonExistingTarget } | Should Throw
-        }
-
         It 'Create simple file target' {
             $Target = New-NlogFileTarget -Name 'Testname' -FileName 'TestDrive:\Test.log'
 
             $Target | Should BeOfType [NLog.Targets.FileTarget]
             $Target.Name | Should Be 'Testname'
             $Target.FileName | Should Be "'TestDrive:\Test.log'"
+        }
+
+        It 'Use supplied layout' {
+            $Target = New-NlogFileTarget -Name 'Testname' -FileName 'TestDrive:\Test.log' -Layout '${message}'
+
+            $Target | Should BeOfType [NLog.Targets.FileTarget]
+            $Target.Name | Should Be 'Testname'
+            $Target.FileName | Should Be "'TestDrive:\Test.log'"
+            $Target.Layout.OriginalText | Should Be '${message}'
         }
 
         It 'Use supplied archive settings' {

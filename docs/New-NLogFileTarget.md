@@ -13,7 +13,7 @@ Creates a new NLog file logging target.
 ## SYNTAX
 
 ```
-New-NLogFileTarget [-Name] <String> [-FileName] <String> [-Layout <String>] [-ArchiveFileName <String>]
+New-NLogFileTarget [[-Name] <String>] [[-FileName] <String>] [-Layout <String>] [-ArchiveFileName <String>]
  [-ArchiveNumbering <String>] [-ArchiveDateFormat <String>] [-ArchiveEvery <String>] [-MaxArchiveFiles <Int32>]
  [-EnableArchiveFileCompression] [<CommonParameters>]
 ```
@@ -70,13 +70,14 @@ be removed.
 
 ### -Name
 Specifies the Name of the target
+If no name is supplied, a random string will be used
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -93,13 +94,16 @@ directory where the script runs.
 ${env:scriptroot}/${level}.log
 All Debug messages will go to Debug.log, all Info messages will go to Info.log and so on.
 You can combine as many of the layout renderers as you want to produce an arbitrary log file name.
+If no filename is supplied, the name of the calling script will be used and written to the
+current users %Temp% directory.
+if not called from a script, the name will default to 'PSNLog'
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 2
 Default value: None
 Accept pipeline input: False

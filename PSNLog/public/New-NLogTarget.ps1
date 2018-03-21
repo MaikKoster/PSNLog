@@ -17,8 +17,8 @@ function New-NLogTarget {
     [OutputType([NLog.Targets.Target])]
     param(
         # Specifies the Name of the target
-        [Parameter(Mandatory, Position=0)]
-        [ValidateNotNullOrEmpty()]
+        # If no name is supplied, a random string will be used
+        [Parameter(Position=0)]
         [string]$Name,
 
         # Specifies the type name of the target.
@@ -116,6 +116,10 @@ function New-NLogTarget {
         }
 
         if ($null -ne $Target) {
+            if ([string]::IsNullOrEmpty($Name)) {
+                # Generate random string
+                $Name = -join ((65..90) | Get-Random -Count 6 | ForEach-Object {[char]$_})
+            }
             $Target.Name = $Name
             $Target
         }

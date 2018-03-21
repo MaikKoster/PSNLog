@@ -14,67 +14,67 @@ Creates a new NLog logging target.
 
 ### ByTypeName (Default)
 ```
-New-NLogTarget [-Name] <String> [-TargetType] <String> [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-TargetType] <String> [<CommonParameters>]
 ```
 
 ### NullTarget
 ```
-New-NLogTarget [-Name] <String> [-NullTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-NullTarget] [<CommonParameters>]
 ```
 
 ### ConsoleTarget
 ```
-New-NLogTarget [-Name] <String> [-ConsoleTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-ConsoleTarget] [<CommonParameters>]
 ```
 
 ### DatabaseTarget
 ```
-New-NLogTarget [-Name] <String> [-DatabaseTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-DatabaseTarget] [<CommonParameters>]
 ```
 
 ### DebugTarget
 ```
-New-NLogTarget [-Name] <String> [-DebugTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-DebugTarget] [<CommonParameters>]
 ```
 
 ### EventLogTarget
 ```
-New-NLogTarget [-Name] <String> [-EventLogTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-EventLogTarget] [<CommonParameters>]
 ```
 
 ### FileTarget
 ```
-New-NLogTarget [-Name] <String> [-FileTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-FileTarget] [<CommonParameters>]
 ```
 
 ### MailTarget
 ```
-New-NLogTarget [-Name] <String> [-MailTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-MailTarget] [<CommonParameters>]
 ```
 
 ### MemoryTarget
 ```
-New-NLogTarget [-Name] <String> [-MemoryTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-MemoryTarget] [<CommonParameters>]
 ```
 
 ### NetworkTarget
 ```
-New-NLogTarget [-Name] <String> [-NetworkTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-NetworkTarget] [<CommonParameters>]
 ```
 
 ### NLogViewerTarget
 ```
-New-NLogTarget [-Name] <String> [-NLogViewerTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-NLogViewerTarget] [<CommonParameters>]
 ```
 
 ### PerformanceCounterTarget
 ```
-New-NLogTarget [-Name] <String> [-PerformanceCounterTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-PerformanceCounterTarget] [<CommonParameters>]
 ```
 
 ### WebServiceTarget
 ```
-New-NLogTarget [-Name] <String> [-WebServiceTarget] [<CommonParameters>]
+New-NLogTarget [[-Name] <String>] [-WebServiceTarget] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -95,13 +95,14 @@ Create a new file target
 
 ### -Name
 Specifies the Name of the target
+If no name is supplied, a random string will be used
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False

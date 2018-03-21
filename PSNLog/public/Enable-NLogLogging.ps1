@@ -29,10 +29,10 @@ function Enable-NLogLogging {
     [CmdLetBinding(DefaultParameterSetName='ByFilename')]
     param(
         # Specifies the Filename to write log messages to.
-        [Parameter(ParameterSetName='ByFilename', Mandatory)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter(ParameterSetName='ByFilename', Position=0)]
         [Alias('FullName')]
-        [string]$FilePath,
+        [Alias('FilePath')]
+        [string]$Filename,
 
         # Specifies the Target to write log messages to.
         [Parameter(ParameterSetName='ByTarget', Mandatory, ValueFromPipeline)]
@@ -40,11 +40,13 @@ function Enable-NLogLogging {
         [NLog.Targets.Target]$Target,
 
         # Specifies the minimum log level.
-        [Parameter(ParameterSetName='ByFilename')]
-        [Parameter(ParameterSetName='ByTarget')]
         [ValidateSet('Debug', 'Error', 'Fatal', 'Info', 'Off', 'Trace', 'Warn')]
         [Alias('MinLevel')]
-        [string]$MinimumLevel,
+        [string]$MinimumLevel = 'Debug',
+
+        # Specifies the log message layout used to write to the file target
+        [Parameter(ParameterSetName='ByFilename')]
+        [string]$Layout = '${cmtrace}',
 
         # Specifies, if Messages written to Write-Verbose/Write-Host/Write-Warning/Write-Error should be
         # redirected to the logging Target automagically.
@@ -64,18 +66,18 @@ function Enable-NLogLogging {
     )
 
     process{
-        if ($PSCmdlet.ParameterSetName -eq 'ByFilename') {
-            if ([string]::IsNullOrEmpty($MinimumLevel)) {
-                [NLog.Config.SimpleConfigurator]::ConfigureForFileLogging($FilePath)
-            } else {
-                [NLog.Config.SimpleConfigurator]::ConfigureForFileLogging($FilePath, [NLog.LogLevel]::FromString($MinimumLevel))
-            }
-        } else {
+        if ($PSCmdlet.ParameterSetName -eq 'ByTarget') {
             if ([string]::IsNullOrEmpty($MinimumLevel)) {
                 [NLog.Config.SimpleConfigurator]::ConfigureForTargetLogging($Target)
             } else {
                 [NLog.Config.SimpleConfigurator]::ConfigureForTargetLogging($Target, [NLog.LogLevel]::FromString($MinimumLevel))
             }
+        } else {
+            $Target = New-NLogFileTarget -Filename $Filename -Layout $Layout
+            $Config = New-Object NLog.Config.LoggingConfiguration
+            $Config.AddTarget($Target)
+            $Config.AddRule([NLog.LogLevel]::FromString($MinimumLevel), [NLog.LogLevel]::Fatal, $Target, "*")
+            Set-NLogConfiguration -Configuration $Config
         }
 
         if (-Not([NLog.LogManager]::IsLoggingEnabled())) {

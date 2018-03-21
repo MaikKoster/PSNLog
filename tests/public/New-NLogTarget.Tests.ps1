@@ -49,5 +49,10 @@ InModuleScope "$ModuleName" {
             $Target = New-NLogTarget -Name 'Testname' -NullTarget
             $Target.Name | Should Be 'Testname'
         }
+
+        It 'Create random name' {
+            $Target = New-NLogTarget -NullTarget
+            $Target.Name.Length | Should Be 6
+        }
     }
 }

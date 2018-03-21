@@ -9,19 +9,31 @@ if (-Not(Get-Module -Name "$ModuleName")) {
 
 InModuleScope "$ModuleName" {
     Describe 'Enable-NLogLogging' {
+        It 'Enable very simple file loging ' {
+            Enable-NLogLogging
+
+            $Logger = Get-NLogLogger
+            $Logger.IsInfoEnabled | Should Be $true
+            $Logger.Info("Some Test")
+            $config = Get-NLogConfiguration
+            $Config.AllTargets | Select-Object -First 1 -ExpandProperty Layout | Select-Object -ExpandProperty OriginalText | Should Be '${cmtrace}'
+            Disable-NLogLogging
+        }
+
         It 'Enable simple file logging' {
             $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging1.log'
-            Enable-NLogLogging -FilePath $TestPath
+            Enable-NLogLogging -Filename $TestPath
 
             $Logger = Get-NLogLogger
             $Logger.IsInfoEnabled | Should Be $true
             $Logger.Info("Some Test")
             Test-Path -Path $TestPath | Should Be $true
+            Disable-NLogLogging
         }
 
         It 'Enable simple file logging and automatically redirect streams' {
             $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging1.log'
-            Enable-NLogLogging -FilePath $TestPath -RedirectMessages
+            Enable-NLogLogging -Filename $TestPath -RedirectMessages
 
             $Logger = Get-NLogLogger
             $Logger.IsInfoEnabled | Should Be $true
@@ -32,11 +44,12 @@ InModuleScope "$ModuleName" {
             Test-Path -Path 'Alias:\Write-Error' | Should Be $true
             Test-Path -Path 'Alias:\Write-Host' | Should Be $false
             Set-MessageStreams -Remove
+            Disable-NLogLogging
         }
 
         It 'Enable simple file logging and automatically host messages' {
             $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging1.log'
-            Enable-NLogLogging -FilePath $TestPath -RedirectHost
+            Enable-NLogLogging -Filename $TestPath -RedirectHost
 
             $Logger = Get-NLogLogger
             $Logger.IsInfoEnabled | Should Be $true
@@ -47,11 +60,12 @@ InModuleScope "$ModuleName" {
             Test-Path -Path 'Alias:\Write-Error' | Should Be $false
             Test-Path -Path 'Alias:\Write-Host' | Should Be $true
             Set-MessageStreams -Remove
+            Disable-NLogLogging
         }
 
         It 'Enable simple file logging with min level' {
             $TestPath = Join-Path -Path $TestDrive -ChildPath 'SimpleFileLogging2.log'
-            Enable-NLogLogging -FilePath $TestPath -MinLevel 'Warn'
+            Enable-NLogLogging -Filename $TestPath -MinLevel 'Warn'
 
             $Logger = Get-NLogLogger
             $Logger.IsInfoEnabled | Should Be $false
@@ -60,6 +74,7 @@ InModuleScope "$ModuleName" {
             Test-Path -Path $TestPath | Should Be $false
             $Logger.Warn("Some Test")
             Test-Path -Path $TestPath | Should Be $true
+            Disable-NLogLogging
         }
 
         It 'Enable simple target logging' {
@@ -70,6 +85,7 @@ InModuleScope "$ModuleName" {
             $Logger.IsInfoEnabled | Should Be $true
             $Logger.Info("Some Test")
             $Target.Counter | Should Be 1
+            Disable-NLogLogging
         }
 
         It 'Enable simple target logging with min level' {
@@ -83,6 +99,7 @@ InModuleScope "$ModuleName" {
             $Target.Counter | Should Be 0
             $Logger.Warn("Some Test")
             $Target.Counter | Should Be 1
+            Disable-NLogLogging
         }
     }
 }
