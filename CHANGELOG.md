@@ -1,7 +1,7 @@
 ﻿# PSNLog Module Release History
 
 ## [0.2.4] - 2018-03-21
-[Full Changelog](https://github.com/MaikKoster/PSNlog/compare/v0.2.3...v0.2.4)
+[Full Changelog](https://github.com/MaikKoster/PSNLog/compare/v0.2.3...v0.2.4)
 
 ### Added
 
@@ -39,3 +39,4 @@ Initial public release, supporting the following actions:
 - Read and apply config file
 - Support SimpleConfiguration
 - Redirect existing Write-Verbose, Write-Warning, Write-Error calls
+
