@@ -2,7 +2,7 @@
 Module Name: PSNLog
 Module Guid: fe52b5c2-b2f8-4804-87c6-8606410b8f7d
 Download Help Link: https://github.com/MaikKoster/PSNLog//blob/master/docs/PSNLog.md
-Help Version: 0.2.3
+Help Version: 0.2.4
 Locale: en-US
 ---
 
@@ -22,6 +22,9 @@ Returns the current NLog configuration.
 
 ### [Get-NLogLogger](Get-NLogLogger.md)
 Gets a NLog Logger instance
+
+### [New-NLogFileTarget](New-NLogFileTarget.md)
+Creates a new NLog file logging target.
 
 ### [New-NLogRule](New-NLogRule.md)
 Creates a new NLog logging rule.
