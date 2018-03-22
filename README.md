@@ -44,39 +44,71 @@ The easiest and quickest way to make use of this requires two easy steps
 
 ```powershell
     Import-Module PSNlog
-    Enable-NLogLogging -FilePath 'C:\Temp\MyLogging.log' -MinimumLevel Debug -RedirectMessages
+    Enable-NLogLogging
 ```
 
-This will create a very simple standard configuration, which allows to write log messages to the specified Log path. In this sample `'C:\Temp\MyLogging.log'`. The **RedirectMessages** parameter will implement a little trick that basically writes the content of every call to **Write-Verbose**, **Write-Warning** and **Write-Error** into the log file as well.
+This will create a very simple standard configuration, that writes log messages to a log file with the same name as the script file within the %Temp% director. If it is not called from within a script, it will use the name `'PSNLog'` as default. To allow easy integration for existing scripts and modules, it implements a little trick that basically write the content of every call to **Write-Verbose**, **Write-Host**, **Write-Warning** and **Write-Error** into the log file as well.
 
-On default, messages written by **Write-Verbose** will have a log level of **Debug**, **Write-Warning** a log level of **Warn** and **Write-Error** a log level of **Error**. Please see the [NLog Wiki](https://github.com/NLog/NLog/wiki/Configuration-file#log-levels) for more details about the different log levels.
+On default, messages written by **Write-Verbose** will have a log level of **Debug**, **Write-Host** a log level of **Info**, **Write-Warning** a log level of **Warn** and **Write-Error** a log level of **Error**. Please see the [NLog Wiki](https://github.com/NLog/NLog/wiki/Configuration-file#log-levels) for more details about the different log levels.
 
 You can now test the behaviour by calling
 
 ```powershell
     Write-Verbose 'This is a verbose message'
+    Write-Host 'This is a "Host" message'
     Write-Warning 'This is a warning message'
     Write-Error 'This is an error message'
 ```
 
-The Cmdlets will still write proper output as they are supposed to. If you now check the `'C:\Temp\MyLogging.log'`, you should see the messages also being logged to the log file.
+The Cmdlets will still write proper output as they are supposed to. If you now check the logfile, you should see the messages also being logged to the log file. On default, it's using the '${cmtrace}' layout renderer, to write log messages in a format that is consumable by CMTrace. A real-time log viewer used in Microsoft System Center Configuration Manager. As that's basically what I'm dealing with most of the time ;)
 
-### Quickly add CMTrace style logging to existing scripts/modules
+### Quickly add logging to a specific logfile
 
-The log format, that is used in the before sample, is the default format from NLog. As I'm dealing a lot with ConfigMgr, I personally prefer the log file format used by CMTrace, which is also supported by this PowerShell module. Quickly enabling this slightly more customized logging only takes a little more effort. I sequezed it into a single line so it technically still takes only two lines of PowerShell to enable the logging ;)
+In case you might want to write to a different location, you can also specify the exact filename or even use other [Layout Renderer](https://github.com/nlog/nlog/wiki/Layout-Renderers) from Nlog. E.g. to write every log level to a different file, you could use the following
 
 ```powershell
     Import-Module PSNlog
-    New-NLogFileTarget 'f' -FileName 'C:\Temp\Debug.log' -Layout '${cmtrace}' | Enable-NLogLogging -MinLevel Debug -RedirectMessages
+    Enable-NLogLogging -FileName '${env:temp}/${level}.log'
 ```
 
-**${cmtrace}** is the name of the new Layout Renderer, that got added by this PowerShell Module.
+or you might want to use a different layout. E.g. the one used on default by NLog:
 
-The rest stays the same. Your log files will now be properly formatted to be viewed with CMTrace from the ConfigMgr Toolkit. Each log entry will now even show you the script name, the function and the exact line of each log message.
+```powershell
+    Enable-NLogLogging -FileName '${env:scriptroot}/${level}.log' -Layout '${longdate}|${level:uppercase=true}|${logger}|${message}'
+```
+
+In case you don't want to have this automatic redirection of the Write-* CmdLets, just supply the parameter **DontRedirectMessages**.
 
 ### Customize logging
 
-TBD
+While using **Write-Verbose**, **Write-Host**, **Write-Warning** and **Write-Error** is a good and easy start, you might want to have a bit more control about the log messages that are created within your script. Especially about the individual levels. e.g. you might want to make proper use of the **Info** level without using Write-Host ([You shouldn't use Write-Host. Really, don't!](http://www.jsnover.com/blog/2013/12/07/write-host-considered-harmful/)).
+
+So lets log to a custom log file and enable daily archiving of this log file
+
+```powershell
+    $Target = New-NLogFileTarget -Name 'MyFileTArget' `
+                                 -Filename 'C:\Temp\MyLogFile.log' `
+                                 -ArchiveFileName 'C:\Temp\Archive\MyLog.{#}.log' `
+                                 -ArchiveNumbering Date `
+                                 -ArchiveEvery Day `
+                                 -MaxArchiveFiles 14 `
+                                 -ArchiveDateFormat 'yyyyMMdd' `
+                                 -EnableArchiveFileCompression
+    Enable-NLogLogging -Target $Target
+```
+
+Then write log messages as following
+
+```powershell
+    $Logger = Get-NLogLogger
+
+    $Logger.Debug("Some debug message")
+    $Logger.Info("Some info message")
+    $Logger.Warn("Some warn message")
+    $Logger.Error("Some error message")
+    $Logger.Trace("Some trace message")
+
+```
 
 ## Contributors
 
