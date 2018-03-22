@@ -1,6 +1,6 @@
 ﻿# PSNLog Module Release History
 
-## [0.2.5] - Unreleased
+## [0.2.5] - 2018-03-22
 
 [Full Changelog](https://github.com/MaikKoster/PSNLog/compare/v0.2.4...v0.2.5)
 
@@ -54,4 +54,5 @@ Initial public release, supporting the following actions:
 - Read and apply config file
 - Support SimpleConfiguration
 - Redirect existing Write-Verbose, Write-Warning, Write-Error calls
+
 
