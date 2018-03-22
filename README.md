@@ -94,7 +94,7 @@ So lets log to a custom log file and enable daily archiving of this log file
                                  -MaxArchiveFiles 14 `
                                  -ArchiveDateFormat 'yyyyMMdd' `
                                  -EnableArchiveFileCompression
-    Enable-NLogLogging -Target $Target
+    Enable-NLogLogging -Target $Target -DontRedirectMessages
 ```
 
 Then write log messages as following
@@ -122,4 +122,3 @@ Then write log messages as following
 
 * Twitter: [@Maik_Koster](https://twitter.com/Maik_Koster)
 * Blog: [MaikKoster.com](http://MaikKoster.com/)
-
