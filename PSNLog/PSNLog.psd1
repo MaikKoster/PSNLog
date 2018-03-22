@@ -4,7 +4,7 @@
     RootModule = 'PSNLog.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.2.4'
+    ModuleVersion = '0.2.5'
 
     # ID used to uniquely identify this module
     GUID = 'fe52b5c2-b2f8-4804-87c6-8606410b8f7d'

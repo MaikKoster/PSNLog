@@ -1,8 +1,8 @@
 ﻿---
 Module Name: PSNLog
-Module Guid: fe52b5c2-b2f8-4804-87c6-8606410b8f7d
+Module Guid: fe52b5c2-b2f8-4804-87c6-8606410b8f7d fe52b5c2-b2f8-4804-87c6-8606410b8f7d
 Download Help Link: https://github.com/MaikKoster/PSNLog//blob/master/docs/PSNLog.md
-Help Version: 0.2.4
+Help Version: 0.2.5
 Locale: en-US
 ---
 

@@ -1,6 +1,20 @@
 ﻿# PSNLog Module Release History
 
+## [0.2.5] - Unreleased
+
+[Full Changelog](https://github.com/MaikKoster/PSNLog/compare/v0.2.4...v0.2.5)
+
+### Changed
+
+- Updated the behaviour of Enable-NLogLogging, so that it requires as minimal information as possible to get started with logging.
+- Enable-NLogLogging will now redirect all calls to Write-Verbose, Write-Host, Write-Warning and Write-Error on default. One has to explicitly disable this functionality
+
+### Fixed
+
+- Fixed the module initialization code before built.
+
 ## [0.2.4] - 2018-03-21
+
 [Full Changelog](https://github.com/MaikKoster/PSNLog/compare/v0.2.3...v0.2.4)
 
 ### Added
@@ -13,6 +27,7 @@
 - Fixed a few typos.
 
 ## [0.2.3] - 2018-03-21
+
 [Full Changelog](https://github.com/MaikKoster/PSNlog/compare/v0.2.2...v0.2.3)
 
 ### Added

@@ -2,7 +2,7 @@
 build: off
 
 # Version number
-version: 0.2.4+{build}
+version: 0.2.5+{build}
 
 skip_commits:
   files:
